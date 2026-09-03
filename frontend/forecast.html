@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizInsight DSS - Sales Forecast</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="/dashboard.html">
+        <i class="fas fa-chart-line"></i> BizInsight DSS
+    </a>
+    <div class="navbar-user">
+        <div class="notif-bell" onclick="toggleNotifications()" style="position:relative; cursor:pointer;">
+            <i class="fas fa-bell" style="font-size:1.1rem; color:white;"></i>
+            <span id="notif-count" style="
+                position:absolute; top:-6px; right:-6px;
+                background:#e94560; color:white;
+                border-radius:50%; width:16px; height:16px;
+                font-size:0.65rem; display:none;
+                align-items:center; justify-content:center;
+                font-weight:700;
+            "></span>
+        </div>
+        <span><i class="fas fa-user-circle"></i> <span id="username">...</span></span>
+        <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</nav>
+
+<!-- Notification Panel -->
+<div id="notif-panel" style="
+    display:none; position:fixed; top:60px; right:16px;
+    width:340px; background:white; border-radius:12px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.15); z-index:9998;
+    overflow:hidden;
+">
+    <div style="background:#1a1a2e; color:white; padding:14px 18px; font-weight:600; font-size:0.95rem;">
+        <i class="fas fa-bell"></i> Notifications
+    </div>
+    <div id="notif-list" style="max-height:360px; overflow-y:auto; padding:8px;"></div>
+</div>
+
+<div class="sidebar">
+    <nav>
+        <a href="/dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/upload.html"><i class="fas fa-upload"></i> Upload Data</a>
+        <a href="/forecast.html" class="active"><i class="fas fa-chart-bar"></i> Sales Forecast</a>
+        <a href="/reports.html"><i class="fas fa-file-alt"></i> Reports</a>
+        <a href="/inventory.html" class="{% if active == 'inventory' %}active{% endif %}"><i class="fas fa-boxes"></i> Inventory</a>
+        <a href="/manage-staff.html"><i class="fas fa-users"></i> Manage Staff</a>
+        <a href="/audit-log.html"><i class="fas fa-history"></i> Audit Log</a>
+        <a href="/data-entry.html"><i class="fas fa-plus-circle"></i> Add Transaction</a>
+        <a href="/settings.html"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1>Sales Forecast</h1>
+        <p>AI-powered sales predictions using Facebook Prophet</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><i class="fas fa-sliders-h"></i> Forecast Settings</div>
+        <div class="card-body">
+            <div class="forecast-controls">
+                <label>Forecast Period:</label>
+                <select id="forecast-period">
+                    <option value="30">Next 30 Days</option>
+                    <option value="60">Next 60 Days</option>
+                    <option value="90">Next 90 Days</option>
+                </select>
+                <button class="btn-generate" id="generate-btn" onclick="generateForecast()">
+                    <i class="fas fa-magic"></i> Generate Forecast
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" id="forecast-card" style="display:none;">
+    <div class="card-header">
+        <span><i class="fas fa-chart-line"></i> Forecast Results</span>
+    </div>
+    <div class="card-body">
+        <!-- Stats row -->
+        <div id="forecast-stats" style="margin-bottom:24px;"></div>
+
+        <!-- Divider -->
+        <div style="border-top:1px solid #f0f0f0; margin-bottom:24px;"></div>
+
+        <!-- Chart -->
+        <canvas id="forecastChart" height="75"></canvas>
+
+        <!-- Legend note -->
+        <p style="text-align:center; color:#aaa; font-size:0.8rem; margin-top:16px;">
+            <i class="fas fa-info-circle"></i>
+            Shaded area represents the 95% confidence interval.
+            Dashed line shows predicted values.
+        </p>
+    </div>
+</div>
+
+    <div class="card" id="forecast-summary" style="display:none;">
+        <div class="card-header"><i class="fas fa-table"></i> Forecast Summary</div>
+        <div class="card-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Predicted Sales (KES)</th>
+                        <th>Lower Bound</th>
+                        <th>Upper Bound</th>
+                    </tr>
+                </thead>
+                <tbody id="forecast-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/forecast.js"></script>
+<script src="/js/notifications.js"></script>
+</body>
+</html>

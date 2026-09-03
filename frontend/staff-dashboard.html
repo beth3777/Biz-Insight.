@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizInsight DSS - Staff Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="/staff-dashboard.html">
+        <i class="fas fa-chart-line"></i> BizInsight DSS
+    </a>
+    <div class="navbar-user">
+        <span style="background:rgba(233,69,96,0.2); color:#e94560;
+                     padding:3px 10px; border-radius:20px; font-size:0.78rem;
+                     font-weight:600; margin-right:4px;">
+            <i class="fas fa-user-tie"></i> Staff
+        </span>
+        <span><i class="fas fa-user-circle"></i> <span id="username">...</span></span>
+        <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</nav>
+
+<div class="sidebar">
+    <nav>
+        <a href="/staff-dashboard.html" class="active">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="/staff-inventory.html">
+            <i class="fas fa-boxes"></i> Inventory
+        </a>
+        <a href="/staff-reports.html">
+            <i class="fas fa-file-alt"></i> Sales Summary
+        </a>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1>Operations Dashboard</h1>
+        <p id="business-name">Loading...</p>
+    </div>
+
+    <!-- Operational KPIs -->
+    <div class="kpi-grid">
+        <div class="kpi-card revenue">
+            <div class="kpi-info">
+                <div class="kpi-label">Today's Sales</div>
+                <div class="kpi-value" id="kpi-today">...</div>
+            </div>
+            <div class="kpi-icon"><i class="fas fa-calendar-day"></i></div>
+        </div>
+        <div class="kpi-card profit">
+            <div class="kpi-info">
+                <div class="kpi-label">This Week's Sales</div>
+                <div class="kpi-value" id="kpi-week">...</div>
+            </div>
+            <div class="kpi-icon"><i class="fas fa-calendar-week"></i></div>
+        </div>
+    </div>
+
+    <!-- Sales Trend (7 days) -->
+    <div class="card">
+        <div class="card-header">
+            <span><i class="fas fa-chart-area"></i> Sales This Week</span>
+        </div>
+        <div class="card-body">
+            <canvas id="salesTrendChart" height="100"></canvas>
+        </div>
+    </div>
+
+    <!-- Top Products -->
+    <div class="card">
+        <div class="card-header"><i class="fas fa-trophy"></i> Top Selling Products</div>
+        <div class="card-body" style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Units Sold</th>
+                        <th>Total Sales</th>
+                    </tr>
+                </thead>
+                <tbody id="top-products-body">
+                    <tr><td colspan="4" style="text-align:center; padding:20px; color:#aaa;">
+                        Loading...
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/staff-dashboard.js"></script>
+</body>
+</html>

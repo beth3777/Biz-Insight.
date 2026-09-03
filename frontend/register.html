@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizInsight DSS - Register</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2><i class="fas fa-chart-line"></i> BizInsight DSS</h2>
+            <p>Create your account</p>
+        </div>
+        <div class="auth-body">
+            <div id="alert-box"></div>
+            <form action="/register" method="POST">
+                <p class="section-label">Account Details</p>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Create a password" required>
+                </div>
+                <hr class="divider">
+                <p class="section-label">Business Details</p>
+                <div class="form-group">
+                    <label>Business Name</label>
+                    <input type="text" name="business_name" placeholder="Enter your business name" required>
+                </div>
+                <div class="form-group">
+                    <label>Industry</label>
+                    <select name="business_industry">
+                        <option value="">Select industry...</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Food & Beverage">Food & Beverage</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Agriculture">Agriculture</option>
+                        <option value="Services">Services</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+            <div class="auth-footer">
+                Already have an account? <a href="/login.html">Login here</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const alertBox = document.getElementById('alert-box');
+    if (params.get('error')) {
+        alertBox.innerHTML = `<div class="alert alert-error">${params.get('error')}</div>`;
+    }
+</script>
+</body>
+</html>

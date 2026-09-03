@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizInsight DSS - Inventory</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="/staff-dashboard.html">
+        <i class="fas fa-chart-line"></i> BizInsight DSS
+    </a>
+    <div class="navbar-user">
+        <span style="background:rgba(233,69,96,0.2); color:#e94560;
+                     padding:3px 10px; border-radius:20px; font-size:0.78rem; font-weight:600;">
+            <i class="fas fa-user-tie"></i> Staff
+        </span>
+        <span><i class="fas fa-user-circle"></i> <span id="username">...</span></span>
+        <a href="/logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</nav>
+
+<div class="sidebar">
+    <nav>
+        <a href="/staff-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/staff-inventory.html" class="active"><i class="fas fa-boxes"></i> Inventory</a>
+        <a href="/staff-reports.html"><i class="fas fa-file-alt"></i> Sales Summary</a>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1>Inventory</h1>
+        <p>Check product stock levels and pricing</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><i class="fas fa-search"></i> Search Products</div>
+        <div class="card-body">
+            <input type="text" id="search-input" placeholder="Search product name..."
+                oninput="filterTable()"
+                style="padding:8px 14px; border:1px solid #ddd; border-radius:8px;
+                       font-size:0.9rem; outline:none; min-width:260px;">
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><i class="fas fa-table"></i> Product List</div>
+        <div class="card-body" style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Selling Price</th>
+                        <th>Units Sold (7d)</th>
+                        <th>Stock Status</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-body">
+                    <tr><td colspan="5" style="text-align:center; padding:30px; color:#aaa;">
+                        <span class="spinner"></span> Loading...
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+<script src="/js/staff-inventory.js"></script>
+</body>
+</html>
